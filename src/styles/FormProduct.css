@@ -1,0 +1,95 @@
+.form-container {
+  width: 50vw;
+}
+
+.form-container h3 {
+  text-align: center;
+}
+
+.form-container form {
+  border-top: 1px solid #888;
+  padding: 12px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.form-container form div {
+  width: 45%;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+}
+
+.form-container form div.form-button-container {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  flex-direction: row;
+}
+
+.form-container form div label {
+  font-weight: bold;
+}
+
+.form-container form div input {
+  border-radius: 5px;
+  border: 1px solid #11255d;
+  height: 1.5rem;
+  margin-top: 4px;
+}
+
+.form-container form div input:hover {
+  color: #11255d;
+}
+
+.form-container form div span {
+  margin-top: 5px;
+  text-align: justify;
+  color: red;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.form-button-submit {
+  border-radius: 5px;
+  border: 1px solid #888;
+  background-color: #ffdc03;
+  color: #11255d;
+  width: 6rem;
+  height: 2rem;
+  font-weight: bold;
+  margin: 0 32px;
+}
+
+.form-button-submit:hover {
+  border-radius: 5px;
+  border: 1px solid #888;
+  background-color: #11255d;
+  color: white;
+  width: 6rem;
+  height: 2rem;
+  font-weight: bold;
+  margin: 0 32px;
+}
+
+.form-button-reset {
+  border-radius: 5px;
+  border: 1px solid #888;
+  color: #11255d;
+  width: 6rem;
+  height: 2rem;
+  font-weight: bold;
+  margin: 0 32px;
+}
+
+.form-button-reset:hover {
+  border-radius: 5px;
+  border: 1px solid #888;
+  background-color: #444;
+  color: white;
+  width: 6rem;
+  height: 2rem;
+  font-weight: bold;
+  margin: 0 32px;
+}

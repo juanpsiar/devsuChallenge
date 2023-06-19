@@ -16,13 +16,14 @@ const TableProducts: React.FC<TableInfo> = ({
   const resultsByPage = 5;
   const columns = [
     {
-      name: 'Nombre del Producto',
-      dataKey: 'name',
-    },
-    {
       name: 'Logo',
       dataKey: 'logo',
     },
+    {
+      name: 'Nombre del Producto',
+      dataKey: 'name',
+    },
+
     {
       name: 'Descripción',
       dataKey: 'description',
@@ -85,41 +86,46 @@ const TableProducts: React.FC<TableInfo> = ({
   };
 
   return (
-    <table>
-      <thead>
-        <tr>
-          {columns.map((column) => (
-            <th key={column.dataKey}>{column.name}</th>
-          ))}
-        </tr>
-      </thead>
-      <tbody>
-        {tableContent.map((itemProduct) => (
-          <tr className="table-row-product" key={itemProduct.id}>
+    <>
+      <table className="table-container">
+        <thead>
+          <tr>
             {columns.map((column) => (
-              <td key={`${itemProduct.id}-${column.dataKey}`}>
-                {returnCellByType(column.dataKey, itemProduct)}
-              </td>
+              <th
+                className={column.dataKey === 'logo' ? 'table-header-img' : 'table-header'}
+                key={column.dataKey}>
+                {column.name}
+              </th>
             ))}
           </tr>
-        ))}
-      </tbody>
-      <tfoot>
-        <tr>
-          <td>{resultsCounterAPI} Resultados</td>
-          <td>
-            <select onChange={(event) => updatePageIndex(event.target.value)} value={indexOfPage}>
-              {Array.from(
-                { length: Math.ceil(counterTable / resultsByPage) },
-                (_, index) => index + 1,
-              ).map((item) => (
-                <option key={item}>{item}</option>
+        </thead>
+        <tbody>
+          {tableContent.map((itemProduct) => (
+            <tr className="table-row-product" key={itemProduct.id}>
+              {columns.map((column) => (
+                <td
+                  className={column.dataKey === 'logo' ? 'table-column-img' : 'table-column'}
+                  key={`${itemProduct.id}-${column.dataKey}`}>
+                  {returnCellByType(column.dataKey, itemProduct)}
+                </td>
               ))}
-            </select>
-          </td>
-        </tr>
-      </tfoot>
-    </table>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+      <div className="table-footer">
+        <div className="table-results-counter">{resultsCounterAPI} Resultados</div>
+
+        <select onChange={(event) => updatePageIndex(event.target.value)} value={indexOfPage}>
+          {Array.from(
+            { length: Math.ceil(counterTable / resultsByPage) },
+            (_, index) => index + 1,
+          ).map((item) => (
+            <option key={item}>{item}</option>
+          ))}
+        </select>
+      </div>
+    </>
   );
 };
 

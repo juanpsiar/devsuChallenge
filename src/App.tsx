@@ -79,11 +79,11 @@ function App() {
   };
 
   return (
-    <div>
-      <div>
+    <div className="container-project">
+      <div className="container-header">
         <img src={`${process.env.DEFAULT_IMAGE_URL}`} alt="logo header" />
       </div>
-      <div>
+      <div className="container-search">
         <input
           className="input-search"
           type="text"

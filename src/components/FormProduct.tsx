@@ -2,6 +2,7 @@ import React, { useState, ChangeEvent, FormEvent, useEffect } from 'react';
 import { ProductsInfo, FormData } from '../models/general.interaces';
 import moment from 'moment';
 import { createProduct, updateProduct, verificationID } from '../services/requestMethods';
+import '../styles/FormProduct.css';
 
 const FormProduct: React.FC<FormData> = ({ dataForm, updateListProducts }) => {
   const emptyValuesForm: ProductsInfo = {
@@ -148,7 +149,7 @@ const FormProduct: React.FC<FormData> = ({ dataForm, updateListProducts }) => {
   };
 
   return (
-    <div>
+    <div className="form-container">
       <h3>Formulario de {formData.id.length > 0 ? 'Edición' : 'Registro'}</h3>
       <form onSubmit={handleSubmit}>
         <div>
@@ -184,6 +185,7 @@ const FormProduct: React.FC<FormData> = ({ dataForm, updateListProducts }) => {
         <div>
           <label htmlFor="logo">Logo:</label>
           <input type="text" id="logo" name="logo" value={formData.logo} onChange={handleChange} />
+          {errors?.logo && errors?.logo.length > 0 && <span>{errors.logo}</span>}
         </div>
         <div>
           <label htmlFor="date_release">Fecha Liberación:</label>
@@ -217,12 +219,14 @@ const FormProduct: React.FC<FormData> = ({ dataForm, updateListProducts }) => {
             disabled
           />
         </div>
-        <button type="button" onClick={handleReset}>
-          Reiniciar
-        </button>
-        <button type="submit" disabled={handleSubmitActivation()}>
-          Enviar
-        </button>
+        <div className="form-button-container">
+          <button className="form-button-reset" type="button" onClick={handleReset}>
+            Reiniciar
+          </button>
+          <button className="form-button-submit" type="submit" disabled={handleSubmitActivation()}>
+            Enviar
+          </button>
+        </div>
       </form>
     </div>
   );
