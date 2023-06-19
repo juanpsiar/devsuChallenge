@@ -31,6 +31,8 @@ Provide step-by-step instructions on how to install and set up the project local
 npm install
 ```
 
+Create a .env file with the same values of the .env.example file.
+
 ## Requirements
 
 Node 16.13.2

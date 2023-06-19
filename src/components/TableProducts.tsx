@@ -1,21 +1,20 @@
 import React, { useEffect, useState } from 'react';
-import { ProductsInfo, TableColumns } from '../models/general.interaces';
+import { ProductsInfo, TableInfo } from '../models/general.interaces';
 import MenuButton from './MenuButton';
-import Modal from './Modal';
-import FormProduct from './FormProduct';
 
+import moment from 'moment';
 import '../styles/TableProducts.css';
 
-interface TableInfo {
-  productsTable: ProductsInfo[];
-  pageIndex: number;
-  updatePageIndex: (data: any) => void;
-}
-
-const TableProducts: React.FC<TableInfo> = ({ productsTable, updatePageIndex, pageIndex }) => {
+const TableProducts: React.FC<TableInfo> = ({
+  tableContent,
+  updatePageIndex,
+  resultsCounterAPI,
+  counterTable,
+  indexOfPage,
+  updateAllTable,
+}) => {
   const resultsByPage = 5;
-  const [tableContent, setTableContent] = useState<ProductsInfo[]>([]);
-  const [columns, setColumns] = useState<TableColumns[]>([
+  const columns = [
     {
       name: 'Nombre del Producto',
       dataKey: 'name',
@@ -40,34 +39,46 @@ const TableProducts: React.FC<TableInfo> = ({ productsTable, updatePageIndex, pa
       name: '',
       dataKey: 'menu',
     },
-  ]);
-  const [showModal, setShowModal] = useState(false);
+  ];
 
-  const [selectedRow, setSelectedRow] = useState<string>('');
-  console.log({ selectedRow });
-  useEffect(() => {
-    const sliceProducts = productsTable.slice(
-      (pageIndex - 1) * resultsByPage,
-      pageIndex * resultsByPage,
-    );
-
-    setTableContent(sliceProducts);
-  }, [pageIndex, productsTable]);
+  const emptyValuesForm: ProductsInfo = {
+    id: '',
+    name: '',
+    description: '',
+    logo: '',
+    date_release: '',
+    date_revision: '',
+  };
+  const [selectedRow, setSelectedRow] = useState<ProductsInfo>(emptyValuesForm);
 
   const returnCellByType = (keyColumn: string, data: ProductsInfo) => {
     switch (keyColumn) {
       case 'logo':
-        return <img style={{ width: '50px' }} src={data.logo} alt={data.id} />;
+        return (
+          <img
+            style={{ width: '50px' }}
+            src={data.logo}
+            alt={data.id}
+            onError={({ currentTarget }) => {
+              currentTarget.onerror = null; // prevents looping
+              currentTarget.src = `${process.env.DEFAULT_IMAGE_URL}`;
+            }}
+          />
+        );
       case 'menu':
         return (
           <MenuButton
-            selectOption={() => {
-              setSelectedRow(data.id);
-              setShowModal(true);
+            selectMenuOption={() => {
+              setSelectedRow(data);
             }}
-            options={['Editar', 'Eliminar']}
+            selectedRegister={selectedRow}
+            functionTableUpdate={updateAllTable}
+            options={[{ label: 'Editar' }, { label: 'Eliminar' }]}
           />
         );
+      case 'date_release':
+      case 'date_revision':
+        return <div>{moment(data[keyColumn]).format('DD/MM/YYYY')}</div>;
       default:
         return <div>{data[keyColumn]}</div>;
     }
@@ -86,31 +97,28 @@ const TableProducts: React.FC<TableInfo> = ({ productsTable, updatePageIndex, pa
         {tableContent.map((itemProduct) => (
           <tr className="table-row-product" key={itemProduct.id}>
             {columns.map((column) => (
-              <td key={column.dataKey}>{returnCellByType(column.dataKey, itemProduct)}</td>
+              <td key={`${itemProduct.id}-${column.dataKey}`}>
+                {returnCellByType(column.dataKey, itemProduct)}
+              </td>
             ))}
           </tr>
         ))}
       </tbody>
       <tfoot>
         <tr>
-          <td>{productsTable.length} Resultados</td>
+          <td>{resultsCounterAPI} Resultados</td>
           <td>
-            <select onChange={(event) => updatePageIndex(event.target.value)}>
+            <select onChange={(event) => updatePageIndex(event.target.value)} value={indexOfPage}>
               {Array.from(
-                { length: Math.ceil(productsTable.length / resultsByPage) },
+                { length: Math.ceil(counterTable / resultsByPage) },
                 (_, index) => index + 1,
               ).map((item) => (
-                <option>{item}</option>
+                <option key={item}>{item}</option>
               ))}
             </select>
           </td>
         </tr>
       </tfoot>
-      {showModal && (
-        <Modal showModal={showModal} setShowModal={setShowModal}>
-          <FormProduct dataForm={tableContent.find((rowTable) => rowTable.id === selectedRow)} />
-        </Modal>
-      )}
     </table>
   );
 };

@@ -1,11 +1,6 @@
-import React, { useState, ReactNode, useEffect } from 'react';
+import React, { useEffect } from 'react';
+import { ModalProps } from '../models/general.interaces';
 import '../styles/Modal.css';
-
-interface ModalProps {
-  children: ReactNode;
-  showModal: boolean;
-  setShowModal: (value: boolean) => void;
-}
 
 const Modal = ({ children, showModal, setShowModal }: ModalProps) => {
   useEffect(() => {

@@ -58,6 +58,7 @@
     "dotenv-webpack": "^8.0.1",
     "extract-plugin": "^0.3.0",
     "mini-css": "^1.0.3",
+    "moment": "^2.29.4",
     "style-loader": "^3.3.3"
   },
   "keywords": [],
