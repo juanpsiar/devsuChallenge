@@ -73,6 +73,17 @@
   margin: 0 32px;
 }
 
+.form-button-submit:disabled {
+  border-radius: 5px;
+  border: 1px solid #888;
+  background-color: #ccc;
+  color: #fff;
+  width: 6rem;
+  height: 2rem;
+  font-weight: bold;
+  margin: 0 32px;
+}
+
 .form-button-reset {
   border-radius: 5px;
   border: 1px solid #888;

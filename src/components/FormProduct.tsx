@@ -23,6 +23,36 @@ const FormProduct: React.FC<FormData> = ({ dataForm, updateListProducts }) => {
     }
   }, [dataForm]);
 
+  const [typingTimer, setTypingTimer] = useState<NodeJS.Timeout | null>(null);
+  const doneTypingInterval = 1500;
+
+  const doneTyping = async (idToCheck: string, errorsList: Partial<ProductsInfo>) => {
+    if (idToCheck.length > 0) {
+      verificationID({ id: idToCheck })
+        .then((response) => {
+          if (response) {
+            setErrors({ ...errorsList, id: 'ID ya registrado' });
+          }
+        })
+        .catch((error) => console.error(error));
+    }
+  };
+
+  const onTyping = (textTyped: string, listErrors: Partial<ProductsInfo>) => {
+    if (typingTimer) {
+      clearTimeout(typingTimer);
+    }
+    setTypingTimer(setTimeout(() => doneTyping(textTyped, listErrors), doneTypingInterval));
+  };
+
+  useEffect(() => {
+    return () => {
+      if (typingTimer) {
+        clearTimeout(typingTimer);
+      }
+    };
+  }, [typingTimer]);
+
   const validationFormValues = (key: string, value: string) => {
     const lengthValues: { [key: string]: { min: number; max: number; label: string } } = {
       id: { min: 3, max: 10, label: 'ID' },
@@ -62,13 +92,7 @@ const FormProduct: React.FC<FormData> = ({ dataForm, updateListProducts }) => {
     }
 
     if (validationErrors.id === '') {
-      verificationID({ id: value })
-        .then((response) => {
-          if (response) {
-            setErrors({ ...validationErrors, [key]: 'ID ya registrado' });
-          }
-        })
-        .catch((error) => console.error(error));
+      onTyping(value, validationErrors);
     } else {
       setErrors(validationErrors);
     }
@@ -85,7 +109,6 @@ const FormProduct: React.FC<FormData> = ({ dataForm, updateListProducts }) => {
     }
     setFormData(newFormValue);
     validationFormValues(name, value);
-    // checkErrors(name, value);
   };
 
   const handleSubmit = (e: FormEvent) => {

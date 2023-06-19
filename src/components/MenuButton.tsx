@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Modal from './Modal';
 import FormProduct from './FormProduct';
 import { ProductsInfo, IconButtonWithMenuProps } from '../models/general.interaces';
@@ -17,6 +17,22 @@ const IconButtonWithMenu: React.FC<IconButtonWithMenuProps> = ({
   const handleMenuToggle = () => {
     setMenuOpen(!isMenuOpen);
   };
+
+  useEffect(() => {
+    const handleOutsideClick = (event: MouseEvent) => {
+      const target = event.target as HTMLElement;
+      if (target.classList.contains('icon-button')) {
+        setMenuOpen(false);
+      }
+    };
+    if (isMenuOpen) {
+      document.addEventListener('mousedown', handleOutsideClick);
+    }
+
+    return () => {
+      document.removeEventListener('mousedown', handleOutsideClick);
+    };
+  }, [isMenuOpen, setMenuOpen]);
 
   const handleMenuClose = (option: string) => {
     setMenuOpen(false);

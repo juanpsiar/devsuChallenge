@@ -5,11 +5,10 @@ Juan Pablo Sigcho Armijos Devsu Challenge
 ## Table of Contents
 
 - [Project Description](#project-description)
-- [Installation](#installation)
-- [Usage](#usage)
 - [Built With](#built-with)
+- [Installation](#installation)
 - [Requirements](#requirements)
-- [License](#license)
+- [Preview](#preview)
 
 ## Project Description
 
@@ -23,6 +22,13 @@ In this we can implement the next functionalities:
 - Implement correspondent methods and services to search, update, create, and delete functionalities for the products.
 - Create a form component to Edit/Create registers in the products list.
 
+## Built With
+
+- webpack
+- moment
+- typescript
+- All interfaces were done without use third party libraries
+
 ## Installation
 
 Provide step-by-step instructions on how to install and set up the project locally. Include any specific dependencies or packages that need to be installed.
@@ -31,9 +37,19 @@ Provide step-by-step instructions on how to install and set up the project local
 npm install
 ```
 
-Create a .env file with the same values of the .env.example file.
+**Create a .env file with the same values of the .env.example file.**
+
+Run the project with
+
+```bash
+npm start
+```
 
 ## Requirements
 
-Node 16.13.2
-React 18.2.0
+- Node 16.13.2
+- React 18.2.0
+
+## Preview
+
+Projects was deployed in Netlify https://juanpsiardevsuchallenge.netlify.app/
