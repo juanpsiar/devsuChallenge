@@ -70,10 +70,15 @@ const IconButtonWithMenu: React.FC<IconButtonWithMenuProps> = ({
       )}
       {showDeleteModal && (
         <Modal showModal={showDeleteModal} setShowModal={setShowDeleteModal}>
-          <div>
-            Quieres eliminar el producto <b>{selectedRegister.name}</b>
+          <div className="modal-delete-container">
+            <span>
+              {' '}
+              Quieres eliminar el producto <b>{selectedRegister.name}</b>
+            </span>
             <div>
-              <button onClick={handleDelete}>Sí</button>
+              <button className="modal-delete-confirm-button" onClick={handleDelete}>
+                Sí
+              </button>
               <button onClick={() => setShowDeleteModal(false)}>No</button>
             </div>
           </div>

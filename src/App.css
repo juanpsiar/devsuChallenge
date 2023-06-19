@@ -28,7 +28,7 @@
   padding: 0 60px;
 }
 .container-header {
-  background-color: white;
+  background-color: #fff;
   width: 100vw;
   height: 100%;
   display: flex;
@@ -67,7 +67,7 @@
   border-radius: 5px;
   border: 1px solid #888;
   background-color: #11255d;
-  color: white;
+  color: #fff;
   width: 6rem;
   height: 2rem;
   font-weight: bold;

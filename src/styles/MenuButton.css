@@ -35,7 +35,7 @@
 .menu {
   position: absolute;
   right: 40px;
-  background-color: white;
+  background-color: #fff;
   padding: 8px;
   border: 1px solid #ccc;
   border-radius: 10px;
@@ -57,4 +57,35 @@
 
 .menu ul li:hover {
   background-color: #f0f0f0;
+}
+
+.modal-delete-container {
+  width: 25rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 8px;
+}
+
+.modal-delete-container span {
+  padding: 16px;
+}
+
+.modal-delete-container button {
+  margin: 0 8px;
+  border-radius: 5px;
+  border: 1px solid #888;
+  color: #11255d;
+  width: 5rem;
+  font-weight: bold;
+}
+
+.modal-delete-container button:hover {
+  background-color: #fff;
+  color: #11555d;
+}
+
+.modal-delete-container button.modal-delete-confirm-button:hover {
+  background-color: red;
+  color: #fff;
 }

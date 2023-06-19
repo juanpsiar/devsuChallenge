@@ -1,5 +1,5 @@
 .table-container {
-  background-color: white;
+  background-color: #fff;
   width: 93%;
   border-radius: 15px;
 }
@@ -36,7 +36,7 @@
 }
 
 .table-footer {
-  background-color: white;
+  background-color: #fff;
   width: 93%;
   display: flex;
   padding: 25px 0;
